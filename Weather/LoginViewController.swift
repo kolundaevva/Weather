@@ -21,6 +21,8 @@ class LoginViewController: UIViewController {
         notification.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
         notification.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         
+        let hideKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        scrollView.addGestureRecognizer(hideKeyboardGesture)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -44,6 +46,10 @@ class LoginViewController: UIViewController {
         
         scrollView.verticalScrollIndicatorInsets = scrollView.contentInset
         scrollView.horizontalScrollIndicatorInsets = scrollView.contentInset
+    }
+    
+    @objc func hideKeyboard() {
+        self.scrollView.endEditing(true)
     }
     
     @IBAction func loginButtonPressed(_ sender: Any) {
