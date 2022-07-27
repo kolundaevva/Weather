@@ -52,8 +52,35 @@ class LoginViewController: UIViewController {
         self.scrollView.endEditing(true)
     }
     
-    @IBAction func loginButtonPressed(_ sender: Any) {
+    @IBAction func loginButtonPressed(_ sender: Any) { }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        let loginStatus = checkUserData()
+        
+        if !loginStatus {
+            showAlert()
+        }
+        
+        return loginStatus
     }
     
+    private func checkUserData() -> Bool {
+        guard let login = loginInput.text, let password = passwordInput.text else { return false }
+        guard !login.isEmpty || !password.isEmpty else { return false }
+        
+        if login == "login", password == "qwerty123" {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    private func showAlert() {
+        let ac = UIAlertController(title: "Something goes wrong", message: "Incorrect login or password.", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
+            self?.passwordInput.text = nil
+        }))
+        present(ac, animated:  true)
+    }
 }
 
