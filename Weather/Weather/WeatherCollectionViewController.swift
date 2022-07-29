@@ -9,8 +9,12 @@ import UIKit
 
 class WeatherCollectionViewController: UICollectionViewController {
 
+    private let networkService = WeatherService()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        networkService.loadData(city: "Moscow")
     }
 
     // MARK: UICollectionViewDataSource
