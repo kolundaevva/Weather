@@ -11,22 +11,29 @@ class WeatherCollectionViewController: UICollectionViewController {
 
     private let networkService = WeatherService()
     
+    var weathers: [Weather] = []
+    let dateFormatter = DateFormatter()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        networkService.loadData(city: "Moscow")
+        networkService.loadData(city: "Moscow") { [weak self] wth in
+            self?.weathers = wth
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
     }
 
     // MARK: UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return weathers.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Weather", for: indexPath) as! WeatherCollectionViewCell
-        cell.weather.text = "30ºC"
-        cell.time.text = "30.08.2017 18:00"
-    
+        let weather = weathers[indexPath.row]
+        cell.configure(with: weather)
         return cell
     }
 }

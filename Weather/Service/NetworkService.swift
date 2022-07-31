@@ -7,9 +7,10 @@
 
 import Foundation
 import UIKit
+import SwiftyJSON
 
 protocol Network {
-    func loadData(city: String)
+    func loadData(city: String, completion: @escaping ([Weather]) -> Void)
 }
 
 class WeatherService: Network {
@@ -20,7 +21,7 @@ class WeatherService: Network {
     private lazy var session = URLSession(configuration: configuration)
     private var urlConstructor = URLComponents()
     
-    func loadData(city: String) {
+    func loadData(city: String, completion: @escaping ([Weather]) -> Void) {
         urlConstructor.scheme = "https"
         urlConstructor.host = baseUrl
         urlConstructor.path = "/data/2.5/forecast"
@@ -41,8 +42,9 @@ class WeatherService: Network {
                     return
                 }
                 
-                let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
-                print(json)
+                guard let data = data, let json = try? JSON(data: data) else { return }
+                let weather = json["list"].compactMap { Weather(json: $0.1) }
+                completion(weather)
             }.resume()
         } else {
             print("Error")
