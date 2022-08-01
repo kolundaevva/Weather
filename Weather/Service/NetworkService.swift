@@ -20,6 +20,7 @@ class WeatherService: Network {
     private let configuration = URLSessionConfiguration.default
     private lazy var session = URLSession(configuration: configuration)
     private var urlConstructor = URLComponents()
+    private let dataManager: Manager = DataManager()
     
     func loadData(city: String, completion: @escaping ([Weather]) -> Void) {
         urlConstructor.scheme = "https"
@@ -44,6 +45,7 @@ class WeatherService: Network {
                 
                 guard let data = data, let json = try? JSON(data: data) else { return }
                 let weather = json["list"].compactMap { Weather(json: $0.1) }
+                self.dataManager.saveWeatherData(weather)
                 completion(weather)
             }.resume()
         } else {

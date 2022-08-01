@@ -7,18 +7,21 @@
 
 import Foundation
 import SwiftyJSON
+import RealmSwift
 
-class Weather {
-    var date = 0.0
-    var temp = 0.0
-    var pressure = 0.0
-    var humidity = 0
-    var weatherName = ""
-    var weatherIcon = ""
-    var windSpeed = 0.0
-    var windDegrees = 0.0
+class Weather: Object {
+    @objc dynamic var date = 0.0
+    @objc dynamic var temp = 0.0
+    @objc dynamic var pressure = 0.0
+    @objc dynamic var humidity = 0
+    @objc dynamic var weatherName = ""
+    @objc dynamic var weatherIcon = ""
+    @objc dynamic var windSpeed = 0.0
+    @objc dynamic var windDegrees = 0.0
     
-    init(json: JSON) {
+    convenience init(json: JSON) {
+        self.init()
+        
         self.date = json["dt"].doubleValue
         self.temp = json["main"]["temp"].doubleValue
         self.pressure = json["main"]["pressure"].doubleValue
@@ -27,6 +30,5 @@ class Weather {
         self.weatherIcon = json["weather"][0]["icon"].stringValue
         self.windSpeed = json["wind"]["speed"].doubleValue
         self.windDegrees = json["wind"]["deg"].doubleValue
-        
     }
 }
