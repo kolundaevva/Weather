@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 
 protocol Network {
-    func loadData(city: String, completion: @escaping ([Weather]) -> Void)
+    func loadData(city: String, completion: @escaping () -> Void)
 }
 
 class WeatherService: Network {
@@ -22,7 +22,7 @@ class WeatherService: Network {
     private var urlConstructor = URLComponents()
     private let dataManager: Manager = DataManager()
     
-    func loadData(city: String, completion: @escaping ([Weather]) -> Void) {
+    func loadData(city: String, completion: @escaping () -> Void) {
         urlConstructor.scheme = "https"
         urlConstructor.host = baseUrl
         urlConstructor.path = "/data/2.5/forecast"
@@ -36,18 +36,19 @@ class WeatherService: Network {
         guard let url = urlConstructor.url else { return }
         
         if UIApplication.shared.canOpenURL(url) {
-            print(url)
-            session.dataTask(with: url) { data, response, error in
-                if let error = error {
-                    print(error)
-                    return
-                }
-                
-                guard let data = data, let json = try? JSON(data: data) else { return }
-                let weather = json["list"].compactMap { Weather(json: $0.1) }
-                self.dataManager.saveWeatherData(weather)
-                completion(weather)
-            }.resume()
+            DispatchQueue.main.async { [weak self] in
+                self?.session.dataTask(with: url) { data, response, error in
+                    if let error = error {
+                        print(error)
+                        return
+                    }
+                    
+                    guard let data = data, let json = try? JSON(data: data) else { return }
+                    let weather = json["list"].compactMap { Weather(json: $0.1, city: city) }
+                    self?.dataManager.saveWeatherData(weather, city: city)
+                    completion()
+                }.resume()
+            }
         } else {
             print("Error")
         }

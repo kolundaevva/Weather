@@ -6,20 +6,21 @@
 //
 
 import UIKit
+import RealmSwift
 
 class WeatherCollectionViewController: UICollectionViewController {
 
-    private let networkService = WeatherService()
+    private let networkService: Network = WeatherService()
+    private let dataManger: Manager = DataManager()
     
-    var weathers: [Weather] = []
-    let dateFormatter = DateFormatter()
+    private var weathers: [Weather] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        networkService.loadData(city: "Moscow") { [weak self] wth in
-            self?.weathers = wth
+        networkService.loadData(city: "Moscow") { [weak self] in
             DispatchQueue.main.async {
+                self?.weathers = self?.dataManger.loadData() ?? []
                 self?.collectionView.reloadData()
             }
         }

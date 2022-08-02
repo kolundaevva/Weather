@@ -18,8 +18,9 @@ class Weather: Object {
     @objc dynamic var weatherIcon = ""
     @objc dynamic var windSpeed = 0.0
     @objc dynamic var windDegrees = 0.0
+    @objc dynamic var city = ""
     
-    convenience init(json: JSON) {
+    convenience init(json: JSON, city: String) {
         self.init()
         
         self.date = json["dt"].doubleValue
@@ -30,5 +31,6 @@ class Weather: Object {
         self.weatherIcon = json["weather"][0]["icon"].stringValue
         self.windSpeed = json["wind"]["speed"].doubleValue
         self.windDegrees = json["wind"]["deg"].doubleValue
+        self.city = city
     }
 }
