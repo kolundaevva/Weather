@@ -10,31 +10,20 @@ import RealmSwift
 
 protocol Manager {
     func saveWeatherData(_ weather: [Weather], city: String)
-    func loadData() -> [Weather]
 }
 
 class DataManager: Manager {
     func saveWeatherData(_ weather: [Weather], city: String) {
         do {
             let realm = try Realm()
+            guard let city = realm.object(ofType: City.self, forPrimaryKey: city) else { return }
+            let oldWeather = city.weather
             try realm.write {
-                let oldWeatherData = realm.objects(Weather.self).filter("city == %@", city)
-                realm.delete(oldWeatherData)
-                realm.add(weather)
+                realm.delete(oldWeather)
+                city.weather.append(objectsIn: weather)
             }
         } catch {
             print(error)
-        }
-    }
-    
-    func loadData() -> [Weather] {
-        do {
-            let realm = try Realm()
-            let weathers = realm.objects(Weather.self).filter("city == %@", "Moscow")
-            return Array(weathers)
-        } catch {
-            print(error)
-            return []
         }
     }
 }

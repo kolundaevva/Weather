@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 
 protocol Network {
-    func loadData(city: String, completion: @escaping () -> Void)
+    func loadData(city: String)
 }
 
 class WeatherService: Network {
@@ -22,7 +22,7 @@ class WeatherService: Network {
     private var urlConstructor = URLComponents()
     private let dataManager: Manager = DataManager()
     
-    func loadData(city: String, completion: @escaping () -> Void) {
+    func loadData(city: String) {
         urlConstructor.scheme = "https"
         urlConstructor.host = baseUrl
         urlConstructor.path = "/data/2.5/forecast"
@@ -46,7 +46,6 @@ class WeatherService: Network {
                     guard let data = data, let json = try? JSON(data: data) else { return }
                     let weather = json["list"].compactMap { Weather(json: $0.1, city: city) }
                     self?.dataManager.saveWeatherData(weather, city: city)
-                    completion()
                 }.resume()
             }
         } else {

@@ -154,7 +154,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Q17-rq-amH" kind="show" id="vpF-m2-thp"/>
+                                    <segue destination="Q17-rq-amH" kind="show" identifier="showWeather" id="vpF-m2-thp"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -166,7 +166,7 @@
                     <navigationItem key="navigationItem" id="SFm-tL-v0h">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="FqR-6q-6j9">
                             <connections>
-                                <segue destination="vFH-Fd-wG7" kind="show" id="EsH-MO-UDf"/>
+                                <action selector="cityAddPressed:" destination="cEK-bA-cfq" id="1fK-BR-VvH"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -246,39 +246,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="718-bh-ulV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3279.7101449275365" y="79.6875"/>
-        </scene>
-        <!--Cities View Controller-->
-        <scene sceneID="ncz-JV-tQN">
-            <objects>
-                <tableViewController id="vFH-Fd-wG7" customClass="CitiesViewController" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="ZG8-zg-a2r">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="City" id="sJ1-X1-4fB">
-                                <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sJ1-X1-4fB" id="TDS-5F-GRW">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="1Nz-JC-FMW" kind="unwind" identifier="addCity" unwindAction="addCityWithSegue:" id="6X3-Yw-cIB"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="vFH-Fd-wG7" id="TsA-vU-sct"/>
-                            <outlet property="delegate" destination="vFH-Fd-wG7" id="jzh-i9-pqi"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="mXA-3N-7ch"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="skY-B1-ROP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="1Nz-JC-FMW" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="2058" y="-637"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qPo-CN-egu">
