@@ -18,9 +18,15 @@ class WeatherCollectionViewCell: UICollectionViewCell {
         return df
     }()
     
-    func configure(with weather: Weather) {
+    func configure(with weather: Weather, indexPath: IndexPath, collectionView: UICollectionView, cell: WeatherCollectionViewCell) {
         weatherLabel.text = "\(weather.temp) ºC"
         let date = Date(timeIntervalSince1970: weather.date)
         time.text = WeatherCollectionViewCell.dateFormatter.string(from: date)
+        
+//        let getCacheImage = GetCacheImage(url: weather.url)
+//        let setImageToRow = SetImageToRow(indexPath: indexPath, collectionView: collectionView, cell: cell)
+//        setImageToRow.addDependency(getCacheImage)
+//        queue.addOperation(getCacheImage)
+//        OperationQueue.main.addOperation(getCacheImage)
     }
 }

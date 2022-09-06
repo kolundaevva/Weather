@@ -17,6 +17,18 @@ class WeatherCollectionViewController: UICollectionViewController {
     private var token: NotificationToken?
     var cityName = ""
     
+    let queue: OperationQueue = {
+        let queue = OperationQueue()
+        queue.qualityOfService = .userInteractive
+        return queue
+    }()
+    
+    private static let dateFormatter: DateFormatter = {
+        let df = DateFormatter()
+        df.dateFormat = "dd.MM.yyyy HH.mm"
+        return df
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,7 +44,18 @@ class WeatherCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Weather", for: indexPath) as! WeatherCollectionViewCell
         let weather = weather[indexPath.row]
-        cell.configure(with: weather)
+//        cell.configure(with: weather, indexPath: indexPath, collectionView: collectionView, cell: cell)
+        
+        cell.weatherLabel.text = "\(weather.temp) ºC"
+        let date = Date(timeIntervalSince1970: weather.date)
+        cell.time.text = WeatherCollectionViewController.dateFormatter.string(from: date)
+        
+        let getCacheImage = GetCacheImage(url: weather.url)
+        let setImageToRow = SetImageToRow(indexPath: indexPath, collectionView: collectionView, cell: cell)
+        setImageToRow.addDependency(getCacheImage)
+        queue.addOperation(getCacheImage)
+        OperationQueue.main.addOperation(setImageToRow)
+        
         return cell
     }
     
@@ -40,7 +63,7 @@ class WeatherCollectionViewController: UICollectionViewController {
     private func pairCollectionAndRealm() {
         guard let realm = try? Realm(), let city = realm.object(ofType: City.self, forPrimaryKey: cityName) else { return }
         weather = city.weather
-        print(weather.count)
+        
         token = weather.observe({ [weak self] changes in
             guard let collectionView = self?.collectionView else { return }
             

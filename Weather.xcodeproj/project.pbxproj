@@ -13,6 +13,8 @@
 		472773F0289660E90077ED0F /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472773EF289660E90077ED0F /* Weather.swift */; };
 		472773FF2897CC8A0077ED0F /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472773FE2897CC8A0077ED0F /* DataManager.swift */; };
 		4727740C289AB8010077ED0F /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4727740B289AB8010077ED0F /* City.swift */; };
+		472D2BFE28C7556B00D43AEE /* GetCacheImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472D2BFD28C7556B00D43AEE /* GetCacheImage.swift */; };
+		472D2C0028C759B300D43AEE /* SetImageToRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472D2BFF28C759B300D43AEE /* SetImageToRow.swift */; };
 		47E7D4CF288FFE500052DE8C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E7D4CE288FFE500052DE8C /* AppDelegate.swift */; };
 		47E7D4D1288FFE500052DE8C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E7D4D0288FFE500052DE8C /* SceneDelegate.swift */; };
 		47E7D4D3288FFE500052DE8C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E7D4D2288FFE500052DE8C /* LoginViewController.swift */; };
@@ -52,6 +54,8 @@
 		472773EF289660E90077ED0F /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		472773FE2897CC8A0077ED0F /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		4727740B289AB8010077ED0F /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		472D2BFD28C7556B00D43AEE /* GetCacheImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCacheImage.swift; sourceTree = "<group>"; };
+		472D2BFF28C759B300D43AEE /* SetImageToRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetImageToRow.swift; sourceTree = "<group>"; };
 		47E7D4CB288FFE500052DE8C /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47E7D4CE288FFE500052DE8C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47E7D4D0288FFE500052DE8C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +129,15 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		472D2BFC28C7555800D43AEE /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				472D2BFD28C7556B00D43AEE /* GetCacheImage.swift */,
+				472D2BFF28C759B300D43AEE /* SetImageToRow.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		47DAA4135A83FAFE6DA70B2A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +179,7 @@
 				47E7D50B2891B6190052DE8C /* Weather */,
 				472773E12894151F0077ED0F /* Service */,
 				472773FD2897CC7B0077ED0F /* Manager */,
+				472D2BFC28C7555800D43AEE /* Helper */,
 				472773EE289660E00077ED0F /* Models */,
 				47E7D4D4288FFE500052DE8C /* Main.storyboard */,
 				47E7D4D7288FFE510052DE8C /* Assets.xcassets */,
@@ -413,9 +427,11 @@
 				47E7D50A2891B2280052DE8C /* UserCitiesTableViewController.swift in Sources */,
 				4727740C289AB8010077ED0F /* City.swift in Sources */,
 				472773E32894152D0077ED0F /* NetworkService.swift in Sources */,
+				472D2C0028C759B300D43AEE /* SetImageToRow.swift in Sources */,
 				47E7D506289176050052DE8C /* CitiesViewController.swift in Sources */,
 				472773F0289660E90077ED0F /* Weather.swift in Sources */,
 				47E7D50D2891B6420052DE8C /* WeatherCollectionViewController.swift in Sources */,
+				472D2BFE28C7556B00D43AEE /* GetCacheImage.swift in Sources */,
 				47E7D4CF288FFE500052DE8C /* AppDelegate.swift in Sources */,
 				47E7D4D1288FFE500052DE8C /* SceneDelegate.swift in Sources */,
 				472773FF2897CC8A0077ED0F /* DataManager.swift in Sources */,

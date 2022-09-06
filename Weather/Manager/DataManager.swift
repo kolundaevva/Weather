@@ -18,6 +18,7 @@ class DataManager: Manager {
             let realm = try Realm()
             guard let city = realm.object(ofType: City.self, forPrimaryKey: city) else { return }
             let oldWeather = city.weather
+            
             try realm.write {
                 realm.delete(oldWeather)
                 city.weather.append(objectsIn: weather)
