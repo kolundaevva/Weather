@@ -217,6 +217,7 @@
                                         </label>
                                     </subviews>
                                 </collectionViewCellContentView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="icon" destination="maJ-8c-fcP" id="QIx-UX-ewQ"/>
                                     <outlet property="time" destination="3wd-gn-6cc" id="7mc-wv-RjO"/>

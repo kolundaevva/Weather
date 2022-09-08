@@ -17,13 +17,15 @@ class WeatherCollectionViewController: UICollectionViewController {
     private var token: NotificationToken?
     var cityName = ""
     
+    private var dateTextCache: [IndexPath: String] = [:]
+    
     let queue: OperationQueue = {
         let queue = OperationQueue()
         queue.qualityOfService = .userInteractive
         return queue
     }()
     
-    private static let dateFormatter: DateFormatter = {
+    private let dateFormatter: DateFormatter = {
         let df = DateFormatter()
         df.dateFormat = "dd.MM.yyyy HH.mm"
         return df
@@ -45,8 +47,7 @@ class WeatherCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Weather", for: indexPath) as! WeatherCollectionViewCell
         let weather = weather[indexPath.row]
         
-        let date = Date(timeIntervalSince1970: weather.date)
-        let time = WeatherCollectionViewController.dateFormatter.string(from: date)
+        let time = getCellDateText(forIndexPath: indexPath, andTimestamp: weather.date)
         cell.configure(temp: weather.temp, time: time)
         
         let getCacheImage = GetCacheImage(url: weather.url)
@@ -81,5 +82,16 @@ class WeatherCollectionViewController: UICollectionViewController {
                 fatalError("Something goes wrong")
             }
         })
+    }
+    
+    private func getCellDateText(forIndexPath indexPath: IndexPath, andTimestamp timestamp: Double) -> String {
+        if let stringDate = dateTextCache[indexPath] {
+            return stringDate
+        } else {
+            let date = Date(timeIntervalSince1970: timestamp)
+            let stringDate = dateFormatter.string(from: date)
+            dateTextCache[indexPath] = stringDate
+            return stringDate
+        }
     }
 }
