@@ -44,11 +44,10 @@ class WeatherCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Weather", for: indexPath) as! WeatherCollectionViewCell
         let weather = weather[indexPath.row]
-//        cell.configure(with: weather, indexPath: indexPath, collectionView: collectionView, cell: cell)
         
-        cell.weatherLabel.text = "\(weather.temp) ºC"
         let date = Date(timeIntervalSince1970: weather.date)
-        cell.time.text = WeatherCollectionViewController.dateFormatter.string(from: date)
+        let time = WeatherCollectionViewController.dateFormatter.string(from: date)
+        cell.configure(temp: weather.temp, time: time)
         
         let getCacheImage = GetCacheImage(url: weather.url)
         let setImageToRow = SetImageToRow(indexPath: indexPath, collectionView: collectionView, cell: cell)
