@@ -26,7 +26,6 @@ class WeatherService: Network {
         urlConstructor.scheme = "https"
         urlConstructor.host = baseUrl
         urlConstructor.path = "/data/2.5/forecast"
-        print(api)
         urlConstructor.queryItems = [
             URLQueryItem(name: "q", value: city),
             URLQueryItem(name: "units", value: "metric"),

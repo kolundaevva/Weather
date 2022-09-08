@@ -25,10 +25,8 @@ class SetImageToRow: Operation {
             return }
         
         if let newIndexPath = collectionView.indexPath(for: cell), newIndexPath == indexPath {
-            print("All good!")
             cell.icon.image = image
         } else if collectionView.indexPath(for: cell) == nil {
-            print("All good!123")
             cell.icon.image = image
         }
     }
